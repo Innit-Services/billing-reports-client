@@ -1,0 +1,20 @@
+
+.navbar {
+    background-color: #3498db;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 210px;
+  }
+  .navbar .leftnav i {
+    cursor: pointer;
+  
+  }
+  
+  @media (max-width: 768px) {
+    .navbar {
+      flex-direction: column;
+    }
+  }
+  

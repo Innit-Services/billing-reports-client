@@ -1,5 +1,8 @@
+
 .d-flex{
     display: flex;
+    overflow: hidden;
+    margin-left: 15px;
 }
 
 .column{
@@ -11,8 +14,8 @@
 }
 
 .flex-basis-10{
-    flex-basis: 10%;
+    flex-basis: 15%;
 }
 .flex-basis-90{
-    flex-basis: 90%;
+    flex-basis: 85%;
 }
