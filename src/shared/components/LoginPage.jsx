@@ -16,7 +16,8 @@ const LoginPage = () => {
 
     return (
         <>
-           
+            <h2>Login Page</h2>
+            <button onClick={()=> navigate('/')}> Login</button>
         </>
     );
 };
