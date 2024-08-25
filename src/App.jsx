@@ -34,7 +34,7 @@ function App() {
             <Route path="viewemployee" element={<ViewEmployee/>}></Route>
             <Route path="register" element={<RegisterForms/>}></Route>  */}
            </Route>
-          <Route path="signup" element={<SignUpPage/>}></Route>
+          {/* <Route path="signup" element={<SignUpPage/>}></Route> */}
         </Routes>
       </BrowserRouter>
     </>
