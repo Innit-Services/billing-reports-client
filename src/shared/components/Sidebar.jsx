@@ -1,4 +1,5 @@
 import {useState,React} from "react";
+import '../../assets/styles/sidebar.css';
 import { NavLink } from "react-router-dom";
 
 const Sidebar = () => {
@@ -30,7 +31,7 @@ const Sidebar = () => {
                         <li className="nav-link"><NavLink to="/"><i className='bx bx-home-alt icon'></i><span className="text nav-text stext">Dashboard</span></NavLink></li>
                         <li className="nav-link"><NavLink to=""><i className='bx bx-bell icon'></i><span className="text nav-text stext">Notification</span></NavLink></li>
                         <li className="nav-link"><NavLink to="/employees"><i className='bx bx-bell icon'></i><span className="text nav-text stext">Employees</span></NavLink></li>
-                        <li className="nav-link"><NavLink to="#"><i className='bx bxs-group icon'></i><span className="text nav-text stext">Client</span></NavLink></li>
+                        <li className="nav-link"><NavLink to="viewclient"><i className='bx bxs-group icon'></i><span className="text nav-text stext">Client</span></NavLink></li>
                         <li className="nav-link"><NavLink to="/department"><i className='bx bx-pie-chart-alt icon'></i><span className="text nav-text stext">Department</span></NavLink></li>
                         <li className="nav-link"><NavLink to="#"><i className='bx bx-user-check icon'></i><span className="text nav-text stext">Attendance</span></NavLink></li>
                         <li className="nav-link"><NavLink to="#"><i className='bx bx-bar-chart-alt-2 icon'></i><span className="text nav-text stext">Payroll</span></NavLink></li>
