@@ -23,10 +23,7 @@ class EmployeeService {
    {
         return axios.get(API_URL+"/viewpositions");
    } 
-   saveEmployeeStatus()
-   {
-     return axios.post(API_URL+"/addemployeestatus");
-   }
+  
    getAllClients() 
    {
         return axios.get(API_URL+"/viewclient");
