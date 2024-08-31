@@ -2,7 +2,6 @@ import React from "react";
 import { useEffect, useState } from "react";
 import ClientService from "../service/ClientService";
 
-
 const ViewClient = () => {
 
     const [clientList, setClientList] = useState([]);
@@ -34,55 +33,54 @@ const ViewClient = () => {
     }
 
     return (<>
-        <div className="table-container pt-2 ">
-            <h3>Clients List</h3>
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th id='headcolor'>ID</th>
-                        <th id='headcolor'>NAME</th>
-                        <th id='headcolor'>CONTACT PERSON</th>
-                        <th id='headcolor'>CONTACT</th>
-                        <th id='headcolor'>EMAIL</th>
-                        <th id='headcolor'>ADDRESS</th>
-                        <th id='headcolor'>START DATE</th>
-                        <th id='headcolor'>END DATE</th>
-                        <th id='headcolor'>COUNTRY</th>
-                        <th id='headcolor'>ACTION</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {clientList.map((c, index) => (
-                        <tr key={c.client_id}>
+        <div className="container">
+            <div className="table-container mx-auto rounded" style={{ width: "1150px" }}>
 
-                            <td>{index + 1}</td>
-                            <td>{c.client_name}</td>
-                            <td>{c.contact_person}</td>
-                            <td>{c.contact_number}</td>
-                            <td>{c.email}</td>
-                            <td>{c.address}</td>
-                            <td>{c.contract_start_date}</td>
-                            <td>{c.contract_end_date}</td>
-                            <td>{c.country}</td>
-                            <td>
-                                <div className="dropdown">
-                                    <span className="table-options" data-bs-toggle="dropdown" aria-expanded="false">⋮</span>
-                                    <ul className="dropdown-menu">
-                                        <a href="#" className="text-primary p-3" onClick={() => {}}>
-                                            Edit
-                                        </a>
-                                        /
-                                        <a href="#" className="text-danger p-3" onClick={() => deleteClient(c.client_id)}>
-                                            Delete
-                                        </a>
-                                    </ul>
-                                </div>
-                            </td>
+                <table className="table table-bordered table-hover" style={{ fontSize: "14px", borderCollapse: "collapse" }}>
+                    <thead className="table-secondary">
+                        <tr>
+                            <th>ID</th>
+                            <th>NAME</th>
+                            <th>CONTACT PERSON</th>
+                            <th>CONTACT</th>
+                            <th>EMAIL</th>
+                            <th>ADDRESS</th>
+                            <th>START DATE</th>
+                            <th>END DATE</th>
+                            <th>COUNTRY</th>
+                            <th>ACTION</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {clientList.map((c, index) => (
+                            <tr key={c.client_id}>
+                                <td>{index + 1}</td>
+                                <td>{c.client_name}</td>
+                                <td>{c.contact_person}</td>
+                                <td>{c.contact_number}</td>
+                                <td>{c.email}</td>
+                                <td>{c.address}</td>
+                                <td>{c.contract_start_date}</td>
+                                <td>{c.contract_end_date}</td>
+                                <td>{c.country}</td>
+                                <td>
+                                    <button
+                                        className="btn btn-link p-0 me-1 ms-2 border-0"
+                                        onClick={() => deleteClient(c.client_id)}
+                                        style={{ fontSize: "14px", background: "transparent" }}
+                                    >
+                                        <i className='bx bx-trash border-0'></i>
+                                    </button>
+
+                                </td>
+
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
+
     </>)
 }
 export default ViewClient;

@@ -1,0 +1,113 @@
+.searchbar-container {
+    margin: 10px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.searchbar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.search-input {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.search-icon {
+    display: flex;
+    align-items: center;
+}
+
+.action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filter-btn, .add-btn, .download-btn {
+    flex-shrink: 0;
+}
+
+.add-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: end;
+}
+
+@media (max-width: 768px) {
+    .searchbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .action-buttons {
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .filter-btn, .add-btn, .download-btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+.container .card {
+    width: 200vw;
+    margin-left: 250px;
+    height: 60vh;
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px); /* Adjust the blur value as needed */
+    z-index: 100;
+}
+
+.modal {
+    position: fixed;
+    right: 0;
+    top: 20%;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 101;
+}
+
+.modal-show {
+    transform: translateX(0);
+}
+
+.modal-dialog {
+    width: 400px;
+}
+
+.modal-content {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.modal-header {
+    background: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.btn-close {
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+}
+
+.modal-body {
+    padding: 1.5rem;
+}

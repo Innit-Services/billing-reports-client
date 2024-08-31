@@ -15,5 +15,14 @@ class ClientService {
    {
         return axios.delete(API_URL+"/deleteclient/"+client_id);
    }
+   getClientById(client_id)
+   {
+     return axios.get(API_URL+"/viewclient/"+client_id);
+   }
+   updateClient(client_id)
+   {
+     return axios.put(API_URL+"/updateclient"+client_id);
+   }
+   
 }
 export default new ClientService;

@@ -11,7 +11,7 @@ export const menus = [
     {
       id: '',
       enable: true,
-      route:'',
+      route:'addclient',
       label: 'Notification',
       icon:'bx-bell',
       submenus: []
@@ -19,7 +19,7 @@ export const menus = [
     {
       id: '',
       enable: true,
-      route:'employees',
+      route:'viewemployee',
       label: 'Employees',
       icon:'bx-bell',
       submenus: []
@@ -35,7 +35,7 @@ export const menus = [
     {
       id: '',
       enable: true,
-      route:'department',
+      route:'viewdepartment',
       label: 'Department',
       icon:'bx-pie-chart-alt',
       submenus: []
@@ -60,7 +60,7 @@ export const menus = [
       id: '',
       enable: true,
       route:'',
-      label: 'Help & Support',
+      label: 'Help',
       icon:'bx-help-circle',
       submenus: []
     }
