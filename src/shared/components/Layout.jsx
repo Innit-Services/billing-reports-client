@@ -7,7 +7,7 @@ import "../../assets/styles/utils.css";
 
 function Layout() {
   return (
-    <div className="flex w-screen h-screen bg-white-400">
+    <div className="flex w-screen h-screen bg-white">
       <div className="w-[13vw] ">
         <Sidebar></Sidebar>
       </div>
