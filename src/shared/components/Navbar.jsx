@@ -5,7 +5,7 @@ import '../../assets/styles/navbar.css';
 
 const Navbar = () => {
   return (
-    <nav className="navbar navbar-light">
+    <nav className="navbar bg-white">
       <div className="container-fluid d-flex justify-content-between align-items-center">
         <div className="leftnav"></div>
         <div className="d-flex align-items-center">

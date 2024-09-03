@@ -10,5 +10,8 @@ body {
 }
 
 main{
-    margin: 0.5rem;
+    margin:2.5rem;
 }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

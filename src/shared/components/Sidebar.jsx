@@ -25,17 +25,17 @@ const Sidebar = () => {
   return (
     <nav className={`sidebar ${isOpen ? "" : "close"}`}>
       <header>
-                <i className='bx bx-menu toggle-btn fs-2 mb-2 mt-2 d-flex justify-content-end ' onClick={toggleSidebar}></i>
-            </header>
+        <i
+          className="bx bx-menu toggle-btn fs-2 d-flex justify-content-end "
+          onClick={toggleSidebar}
+        ></i>
+      </header>
       <div className="menu-bar">
         <div className="menu">
           <ul className="menu-link">
-           
-           
-            
             {menus.filter((menu) => menu.enable).map(getMenuItem)}
 
-            <li className="nav-link align-items-end mt-xxl-5">
+            <li className="nav-link align-items-end mt-xxl-2">
               <NavLink to="/signin">
                 <i className="bx bx-log-out icon"></i>
                 <span className="text nav-text stext">Log out</span>

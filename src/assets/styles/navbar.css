@@ -1,10 +1,11 @@
 .navbar {
-  background-color: rgb(214, 209, 209); 
+  
   color: black;
   display: flex;
   justify-content: space-between;
   padding: 0.5rem 1rem; 
-  margin-left: 180px;
+  
+  
 }
 
 .navbar .leftnav i {
