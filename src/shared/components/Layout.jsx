@@ -11,7 +11,6 @@ function Layout(){
             <div className="d-flex column height-100-per">
                 <header className="flex-basis-10">
                     <Navbar></Navbar>
-                    <Searchbar></Searchbar>
                 </header>
                 <div className="d-flex flex-basis-90" style={{Border:'2px solid'}}>
                     <div className="flex-basis-10">
