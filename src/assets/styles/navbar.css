@@ -1,0 +1,30 @@
+.navbar {
+  background-color: rgb(214, 209, 209); 
+  color: black;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1rem; 
+  margin-left: 180px;
+}
+
+.navbar .leftnav i {
+  cursor: pointer;
+}
+
+.navbar .d-flex {
+  align-items: center;
+}
+
+.navbar i {
+  font-size: 1.5rem; 
+}
+
+.navbar span {
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+  }
+}
