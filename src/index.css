@@ -3,6 +3,7 @@ body {
     padding: 0;
     font-size: 16px;
     line-height: 1.5;
+    overflow: hidden;
 }
 
 #root{
@@ -10,5 +11,16 @@ body {
 }
 
 main{
-    margin: 0.5rem;
+    margin:2.5rem;
 }
+.p-paginator {
+    padding-top: 20px;
+    padding-bottom: 10px; 
+}
+.hover-row:hover {
+    background-color: #c1cedb;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
