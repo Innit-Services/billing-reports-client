@@ -7,7 +7,7 @@ const getMenuItem = (menu) => (
   <li className="nav-link">
     <NavLink to={menu.route}>
       <i className={`bx icon ${menu.icon}`}></i>
-      <span className="text nav-text stext">{menu.label}</span>
+      <span className="text nav-text fs-6">{menu.label}</span>
     </NavLink>
   </li>
 );
@@ -23,12 +23,12 @@ const Sidebar = ({ isExpanded, toggleSidebar }) => {
       </header>
       <div className="menu-bar">
         <div className="menu">
-          <ul className="menu-link">
+          <ul className="menu-link text-white">
             {menus.filter((menu) => menu.enable).map(getMenuItem)}
-            <li className="nav-link align-items-end mt-xxl-2">
+            <li className="nav-link align-items-end absolute bottom-8">
               <NavLink to="/signin">
                 <i className="bx bx-log-out icon"></i>
-                <span className="text nav-text stext">Log out</span>
+                <span className="text nav-text fs-6">Log out</span>
               </NavLink>
             </li>
           </ul>
