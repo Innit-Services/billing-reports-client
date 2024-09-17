@@ -5,6 +5,8 @@ import './index.css'
 import './apis/axiosInterceptor.js';
 import setupInterceptors from './apis/axiosInterceptor';
 import { AuthProvider, useAuth } from './apis/AuthContext'; 
+import { Provider } from "react-redux";
+import store from "./store/store.jsx";
 
 const Root = () => {
   const { getAccessToken } = useAuth(); // Use the hook inside a component
@@ -15,8 +17,10 @@ const Root = () => {
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <Provider store={store}>
     <AuthProvider>
       <Root /> {/* Render Root instead of App */}
     </AuthProvider>
+    </Provider>
   </StrictMode>,
 )
