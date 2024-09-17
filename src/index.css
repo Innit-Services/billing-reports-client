@@ -17,6 +17,12 @@ main{
     padding-top: 20px;
     padding-bottom: 10px; 
 }
+
+
+ .p-datatable .p-sortable-column .p-sortable-column-icon {
+    display: none; 
+} 
+
 .hover-row:hover {
     background-color: #c1cedb;
 }
