@@ -13,7 +13,13 @@ import SignUpPage from "./shared/components/SignUpPage";
 import UpdateClient from "./module/client/components/UpdateClient";
 import AddEmployeeStatus from "./module/employee/components/AddEmployeeStatus";
 import ViewDepartment from "./module/department/components/ViewDepartment";
+<<<<<<< Updated upstream
 
+=======
+import EmployeeDetails from "./module/employee/components/EmployeeDetails";
+import ViewProfile from "./module/employee/components/ViewProfile";
+import EmployeeStatus from "./module/employee/components/EmployeeStatus";
+>>>>>>> Stashed changes
 
 const routes = [
   {
@@ -23,8 +29,14 @@ const routes = [
     children: [
       { index: true, element: <>Default Landing Page</> },
       { path: "/addemployee", element: <AddEmployee /> },
+<<<<<<< Updated upstream
       { path: "viewemployee", element: <ViewEmployee /> },
+=======
+      { path: "viewemployee", element: <ViewEmployee/> },
+      { path: "viewprofile/:id", element: <ViewProfile/> },
+>>>>>>> Stashed changes
       { path: "/addemployeestatus", element:<AddEmployeeStatus/>},
+      { path: "/viewemployeestatus/:person_id", element:<EmployeeStatus/>},
       { path:"viewdepartment", element: <ViewDepartment/>},
       { path: "addclient", element:<AddClient/>},
       { path: "viewclient", element: <ViewClient /> },
