@@ -1,99 +1,262 @@
-// src/module/client/components/UpdateClient.jsx
-import React, { useEffect, useState } from "react";
-import { Container, Grid, TextField, Button, Typography, Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import ClientService from "../service/ClientService";
-import axios from "axios";
-import { formConfig } from "./formConfig"; 
 
-const API_URL = "http://localhost:8080/api"; 
-
-const UpdateClient = ({ showModal, closeModal, clientId }) => {
-  const [client, setClient] = useState({
+const UpdateClient = ({ client, onClose, onUpdateSuccess }) => {
+  const [formData, setFormData] = useState({
+    client_id: "",
     client_name: "",
     contact_person: "",
     contact_number: "",
     email: "",
     address: "",
-    contract_start_date: "",
-    contract_end_date: "",
     country: "",
+    contract: { startDate: "", endDate: "", termDate: "", status: "" },
   });
 
-  const [msg, setMsg] = useState("");
-  const [modalMessage, setModalMessage] = useState("");
-
   useEffect(() => {
-    if (clientId) {
-      ClientService.getClientById(clientId)
-        .then((res) => {
-          setClient(res.data);
-        })
-        .catch((error) => {
-          console.log(error);
-          setMsg("Failed to fetch client details.");
-        });
+    if (client) {
+      console.log(client);
+      setFormData(client);
     }
-  }, [clientId]);
+  }, [client]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setClient({ ...client, [name]: value });
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      await axios.put(`${API_URL}/updateclient`, client);
-      setModalMessage("Client updated successfully.");
-    } catch (error) {
-      setModalMessage("Failed to update client.");
-    }
-    closeModal(); // Close the modal after submission
+    console.log(formData);
+    ClientService.updateClient(formData)
+      .then((response) => {
+        console.log("Department updated:", response.data);
+        if (onUpdateSuccess) {
+          onUpdateSuccess(response.data);
+        }
+        onClose();
+      })
+      .catch((error) => {
+        console.error("Error updating department:", error);
+      });
   };
 
   return (
-    <Dialog open={showModal} onClose={closeModal} fullWidth maxWidth="md">
-      <DialogTitle>Update Client</DialogTitle>
-      <DialogContent>
-        <Container>
-          <form onSubmit={handleSubmit}>
-            <Grid container spacing={3}>
-              {formConfig.map((field) => (
-                <Grid item xs={12} sm={6} key={field.id}>
-                  <TextField
-                    id={field.id}
-                    name={field.id}
-                    label={field.label}
-                    type={field.type}
-                    placeholder={field.placeholder}
-                    value={client[field.id]}
-                    onChange={handleChange}
-                    fullWidth
-                    variant="outlined"
-                    inputProps={{
-                      pattern: field.pattern,
-                      title: field.title,
-                    }}
-                    required
-                  />
-                </Grid>
-              ))}
-              <Grid item xs={12}>
-                <Button type="submit" variant="contained" color="primary" fullWidth>
-                  Update Client
-                </Button>
-              </Grid>
-            </Grid>
-          </form>
-          {msg && <Typography variant="h6" color="textSecondary" gutterBottom>{msg}</Typography>}
-        </Container>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={closeModal} color="primary">
-          Close
-        </Button>
-      </DialogActions>
-    </Dialog>
+    <>
+      <div
+        className="fixed inset-0 bg-gray-500 bg-opacity-50 z-40"
+        onClick={onClose}
+      ></div>
+      <div className="fixed inset-0 flex items-center justify-center z-50">
+        <div className="bg-white border border-gray-200 rounded-lg shadow flex flex-col h-[95vh] w-full max-w-lg">
+          <div className="flex p-2 justify-between items-center border-b-2 text-black">
+            <h2 className="text-xl font-semibold">Update Client</h2>
+            <FontAwesomeIcon
+              icon={faTimes}
+              size="lg"
+              onClick={onClose}
+              className="cursor-pointer"
+            />
+          </div>
+
+          <div className="flex-grow overflow-y-auto p-3">
+            <form onSubmit={handleSubmit}>
+              <div className="mb-2">
+                <label
+                  htmlFor="departmentName"
+                  className="block text-base font-medium text-gray-700 mb-1"
+                >
+                  Client Name
+                </label>
+                <input
+                  type="text"
+                  name="client_name"
+                  id="client_name"
+                  value={formData.client_name}
+                  onChange={handleChange}
+                  className="w-full rounded-md border border-gray-300 bg-white py-2 px-1 text-base font-medium text-gray-700 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                />
+              </div>
+
+              <div className="mb-2">
+                <label
+                  htmlFor="departmentName"
+                  className="block text-base font-medium text-gray-700 mb-1"
+                >
+                  Contact Person
+                </label>
+                <input
+                  type="text"
+                  name="contact_person"
+                  id="contact_person"
+                  value={formData.contact_person}
+                  onChange={handleChange}
+                  className="w-full rounded-md border border-gray-300 bg-white py-2 px-1 text-base font-medium text-gray-700 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                />
+              </div>
+
+              <div className="mb-2">
+                <label
+                  htmlFor="departmentName"
+                  className="block text-base font-medium text-gray-700 mb-1"
+                >
+                  Contact Number
+                </label>
+                <input
+                  type="text"
+                  name="contact_number"
+                  id="contact_number"
+                  value={formData.contact_number}
+                  onChange={handleChange}
+                  className="w-full rounded-md border border-gray-300 bg-white py-2 px-1 text-base font-medium text-gray-700 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                />
+              </div>
+
+              <div className="mb-2">
+                <label
+                  htmlFor="departmentName"
+                  className="block text-base font-medium text-gray-700 mb-1"
+                >
+                  Email
+                </label>
+                <input
+                  type="text"
+                  name="email"
+                  id="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="w-full rounded-md border border-gray-300 bg-white py-2 px-1 text-base font-medium text-gray-700 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                />
+              </div>
+
+              <div className="mb-2">
+                <label
+                  htmlFor="departmentName"
+                  className="block text-base font-medium text-gray-700 mb-1"
+                >
+                  Address
+                </label>
+                <input
+                  type="text"
+                  name="address"
+                  id="address"
+                  value={formData.address}
+                  onChange={handleChange}
+                  className="w-full rounded-md border border-gray-300 bg-white py-2 px-1 text-base font-medium text-gray-700 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                />
+              </div>
+
+              <div className="mb-2">
+                <label
+                  htmlFor="departmentName"
+                  className="block text-base font-medium text-gray-700 mb-1"
+                >
+                  Country
+                </label>
+                <input
+                  type="text"
+                  name="country"
+                  id="country"
+                  value={formData.country}
+                  onChange={handleChange}
+                  className="w-full rounded-md border border-gray-300 bg-white py-2 px-1 text-base font-medium text-gray-700 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                />
+              </div>
+
+              <div className="mb-2">
+                <label
+                  htmlFor="departmentName"
+                  className="block text-base font-medium text-gray-700 mb-1"
+                >
+                  Start Date
+                </label>
+                <input
+                  type="text"
+                  name="startDate"
+                  id="startDate"
+                  value={formData.contract.startDate}
+                  onChange={handleChange}
+                  className="w-full rounded-md border border-gray-300 bg-white py-2 px-1 text-base font-medium text-gray-700 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                />
+              </div>
+
+              <div className="mb-2">
+                <label
+                  htmlFor="departmentName"
+                  className="block text-base font-medium text-gray-700 mb-1"
+                >
+                  End Date
+                </label>
+                <input
+                  type="text"
+                  name="endDate"
+                  id="endDate"
+                  value={formData.contract.endDate}
+                  onChange={handleChange}
+                  className="w-full rounded-md border border-gray-300 bg-white py-2 px-1 text-base font-medium text-gray-700 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                />
+              </div>
+
+              <div className="mb-2">
+                <label
+                  htmlFor="departmentName"
+                  className="block text-base font-medium text-gray-700 mb-1"
+                >
+                  Term Date
+                </label>
+                <input
+                  type="text"
+                  name="termDate"
+                  id="termDate"
+                  value={formData.contract.termDate}
+                  onChange={handleChange}
+                  className="w-full rounded-md border border-gray-300 bg-white py-2 px-1 text-base font-medium text-gray-700 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                />
+              </div>
+
+              <div className="mb-2">
+                <label
+                  htmlFor="departmentName"
+                  className="block text-base font-medium text-gray-700 mb-1"
+                >
+                  Status
+                </label>
+                <input
+                  type="text"
+                  id="status"
+                  name="status"
+                  value={formData.contract.status}
+                  onChange={handleChange}
+                  className="w-full rounded-md border border-gray-300 bg-white py-2 px-1 text-base font-medium text-gray-700 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                />
+              </div>
+            </form>
+          </div>
+
+          <div className="flex justify-end p-2 border-t-2">
+            <button
+              type="button"
+              className="text-white px-3 py-1 rounded bg-red-500 mr-4"
+              onClick={onClose}
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="text-white px-3 py-1 rounded bg-blue-500"
+              onClick={handleSubmit}
+            >
+              Update
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 

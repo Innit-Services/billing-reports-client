@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL="http://localhost:8080";
+const API_URL="http://localhost:8081";
 class ClientService {
 
    saveClient(client)
@@ -19,9 +19,9 @@ class ClientService {
    {
      return axios.get(API_URL+"/viewclient/"+client_id);
    }
-   updateClient(client_id)
+   updateClient(formData)
    {
-     return axios.put(API_URL+"/updateclient"+client_id);
+     return axios.put(API_URL+"/updateclient",formData);
    }
    
 }
