@@ -1,33 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
 import EmployeeService from '../EmployeeService';
 import { useNavigate } from "react-router-dom";
-// import Add from "./Add";
 import AddEmployee from "./AddEmployee";
-import Search from "../../../shared/components/Search";
-import Filter from "../../../shared/components/Filter";
+import EmployeeHeader from './EmployeeHeader';
 import Pagination from "../../../shared/components/Pagination";
-import Tooltip from '@mui/material/Tooltip';
-
+import DeleteConfirmation from "../../../shared/components/DeleteConfirmation";
+import Notification from "../../../shared/components/Notification";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import EmployeeTable from './EmployeeTable';  
 
 const ViewEmployee = () => {
     const navigate = useNavigate();
     const [employeeList, setEmployeeList] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
-    const [employeesPerPage] = useState(9);
+    const [employeesPerPage] = useState(8);
     const [sortField, setSortField] = useState(null);
     const [sortOrder, setSortOrder] = useState(null);
     const [isFormOpen, setIsFormOpen] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false); 
+    const [employeeToDelete, setEmployeeToDelete] = useState(null); 
+
     const openForm = () => setIsFormOpen(true);
     const closeForm = () => setIsFormOpen(false);
-
-
-
-    const handleDetailClick = (id) => {
-        navigate(`/viewprofile/${id}`);
-    }
 
     useEffect(() => {
         init();
@@ -43,14 +39,27 @@ const ViewEmployee = () => {
             });
     };
 
-    const deleteEmployee = (employee_code) => {
-        EmployeeService.delEmployee(employee_code)
+    const confirmDeleteEmployee = (employee_code) => {
+        setEmployeeToDelete(employee_code);
+        setShowDeleteModal(true); 
+    };
+
+    const handleDeleteConfirm = () => {
+        EmployeeService.delEmployee(employeeToDelete)
             .then(() => {
-                init();
+                init(); 
+                toast.success("Employee deleted successfully."); 
             })
             .catch((error) => {
-                console.log(error);
+                console.error("Error deleting employee:", error);
+                toast.error("Error deleting employee."); 
             });
+        setShowDeleteModal(false); 
+    };
+    
+    const handleDeleteCancel = () => {
+        setShowDeleteModal(false); 
+        setEmployeeToDelete(null); 
     };
 
     const handleSearchChange = (e) => {
@@ -95,8 +104,6 @@ const ViewEmployee = () => {
         );
     });
 
-
-
     const firstRecordIndex = (currentPage - 1) * employeesPerPage;
     const paginatedEmployees = filteredEmployees.slice(firstRecordIndex, firstRecordIndex + employeesPerPage);
 
@@ -110,96 +117,43 @@ const ViewEmployee = () => {
         if (currentPage < totalPages) setCurrentPage(currentPage + 1);
     };
 
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
+    const handleRowClick = (employee_code) => {
+        navigate(`/viewprofile/${employee_code}`);
+    };
+
     return (
         <div className="flex h-screen w-full mx-auto">
+            <Notification />
             <div className="relative p-0 w-full mx-auto">
                 <div className="bg-white border border-gray-100 rounded-3 relative w-full h-[90vh] ">
-                    <div className="flex justify-between border border-custom-dark-blue rounded-t-lg  text-white items-center  bg-custom-dark-blue" >
-                        <h2 className="flex-grow p-3 fs-5 font-bold ">Employees</h2>
-                        <div className="flex mt-2">
-                            <Search searchQuery={searchQuery} onSearchChange={handleSearchChange} />
-
-
-
-                            {/* <Add onAddClick={() => { }} /> */}
-
-                            <Tooltip title="Add Employee">
-                                <button
-                                    type="button"
-                                    className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-2 py-2 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 w-[3vw]"
-                                    onClick={openForm}
-                                >
-                                    <i className="bx bx-plus fs-5 text-md"></i>
-                                </button>
-                            </Tooltip>
-
-                            {isFormOpen && <AddEmployee onClose={closeForm} />}
-
-
-
-                            <Filter onFilterClick={() => { }} />
-
-
-
-
-                        </div>
-                    </div>
-
-                    <DataTable
-                        value={paginatedEmployees}
-                        onSort={onSort}
+                    <EmployeeHeader searchQuery={searchQuery} onSearchChange={handleSearchChange} onAddClick={openForm} />
+                    {isFormOpen && <AddEmployee onClose={closeForm} />}
+                    
+                    <EmployeeTable
+                        employees={paginatedEmployees}
                         sortField={sortField}
                         sortOrder={sortOrder}
-                        className="border-gray-500"
-                        rowClassName="border border-gray-600 hover-row cursor-pointer"
-                    >
-                        
+                        onSort={onSort}
+                        onRowClick={handleRowClick}
+                        onDelete={confirmDeleteEmployee}
+                    />
 
-                        <Column
-                            field="employee_code"
-                            header={
-                                <Tooltip title="Sort by Id" arrow>
-                                    <span>ID</span>
-                                </Tooltip>
-                            }
-                            sortable
-                            headerClassName="p-2 ps-3 custom-sort-header"
-                            className="py-2 px-3"
-                            body={(e) => (
-                                <span
-                                    style={{ cursor: "pointer" }}
-                                    onClick={() => handleDetailClick(e.employee_code)}
-                                >
-                                    {e.employee_code}
-                                </span>
-                            )}
-                        />
-
-
-                        <Column field="first_name" header="FIRST NAME" sortable headerClassName="p-2 custom-sort-header" className="py-2 px-2" />
-                        <Column field="last_name" header="LAST NAME" sortable headerClassName="p-2" className="py-2 px-2" />
-                        <Column field="contact_number" header="CONTACT" sortable headerClassName="p-2" className="py-2 px-2" />
-                        <Column field="email" header="EMAIL ID" sortable headerClassName="p-2" className="py-2 px-2" />
-                        <Column field="departmentName" header="DEPARTMENT" sortable headerClassName="p-2" className="py-2 px-2" />
-                        <Column field="employeeStatus.status" header="STATUS" sortable headerClassName="p-2 custom-sort-header" className="py-2 px-2" />
-                        <Column
-                            header="ACTION"
-                            body={(e) => (
-                                <button
-                                    className="p-0 me-1 ms-2 border-0 bg-transparent rounded"
-                                    onClick={() => deleteEmployee(e.employee_code)}
-                                >
-                                    <i className="bx bxs-trash text-blue-700"></i>
-                                </button>
-                            )}
-                            className="py-2 px-2"
-                        />
-                    </DataTable>
                     <Pagination
                         currentPage={currentPage}
                         totalPages={totalPages}
                         onPrevPage={handlePrevPage}
                         onNextPage={handleNextPage}
+                        onPageChange={handlePageChange}
+                    />
+
+                    <DeleteConfirmation
+                        show={showDeleteModal}
+                        onClose={handleDeleteCancel}
+                        onConfirm={handleDeleteConfirm}
                     />
                 </div>
             </div>
@@ -208,8 +162,3 @@ const ViewEmployee = () => {
 };
 
 export default ViewEmployee;
-
-
-
-
-
