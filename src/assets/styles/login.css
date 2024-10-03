@@ -1,49 +1,47 @@
-.home{
-    /* background-color: rgb(234, 237, 250);  */
-    overflow: hidden;
-    height: 100vh;
-    
-   
-}
-.main-home{
-margin: 8vh;
-padding-right: 5vw;
-width: 85vw;
-height: 80vh;
-
+.home {
+  overflow: hidden;
+  height: 100vh;
 
 }
-.login{
-    width:40vw;
-    height: 55vh;
-  
+
+.main-home {
+  margin: 8vh auto;  
+  padding-right: 5vw;
+  margin-left: 5%;
 }
-.signup{
- 
-  width:50vw;
+
+.login {
+  width: 40vw;
+  height: 55vh;
+}
+
+.signup {
+  width: 50vw;
   height: 70vh;
+  background-color: #ffffff;
 }
-.text-left{
-    padding-left: 60px;
-    padding-bottom: 50px;
-    height: 80vh;
-    width:40vw; 
-    padding-top: 30vh;
-    background-color:rgb(126, 196, 224);
-   
+
+.left-side {
+  padding-left: 10%;
+  padding-bottom: 7%;
+  height: 80vh;
+  width: 40vw;
+ justify-content: space-between;
+
+ 
 }
+
 @keyframes anm {
-    0% {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    50% {
-      opacity: 1;
-      transform: translateY(0px);
-    }
+  0% {
+    opacity: 0;
+    transform: translateY(5%);
   }
-  
-  .welcome-animation {
-    animation: anm 5s ease-in infinite;
+  50% {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
+}
+
+.welcome-animation {
+  animation: anm 5s ease-in infinite;
+}
