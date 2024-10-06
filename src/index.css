@@ -27,6 +27,25 @@ main{
     background-color: #c1cedb;
 }
 
+:root {
+    --primary-color: #ffffff;
+  }
+  
+  
+  body {
+    background-color: var(--primary-color);
+  }
+  
+  button {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+  
+  a {
+    color: var(--primary-color);
+  }
+  
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

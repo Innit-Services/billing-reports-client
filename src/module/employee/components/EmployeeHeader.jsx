@@ -6,7 +6,7 @@ import AddButton from './AddButton';
 const EmployeeHeader = ({ searchQuery, onSearchChange, onAddClick }) => {
     return (
         <div className="flex justify-between border rounded-t-lg text-white items-center">
-            <h2 className="flex-grow p-3 fs-5 text-black font-semibold">Employees</h2>
+            <h2 className="flex-grow p-2 fs-5 text-black font-semibold">Employees</h2>
             <div className="flex mt-2">
                 <Search searchQuery={searchQuery} onSearchChange={onSearchChange} />
                 <AddButton onClick={onAddClick} />
