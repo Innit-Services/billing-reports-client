@@ -6,12 +6,6 @@ export default {
   ],
   theme: {
     extend: {
-      colors:{
-        // 'custom-dark-blue': '#324264',
-      },
-      // fontFamily: {
-      //   inter: ['inter', 'sans-serif'],
-      // },
       fontSize: {
         lg:'18px',
         base:'16px', 
