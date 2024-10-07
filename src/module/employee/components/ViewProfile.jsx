@@ -5,7 +5,7 @@ import EmployeeService from "../EmployeeService";
 import "boxicons/css/boxicons.min.css";
 import EmployeeProfileLeft from "./EmployeeProfileLeft";
 import EmployeeProfileRight from "./EmployeeProfileRight";
-import EmployeeSubmenu from "./EmployeeSubmenu";
+
 
 const ViewProfile = () => {
   const { id } = useParams();
