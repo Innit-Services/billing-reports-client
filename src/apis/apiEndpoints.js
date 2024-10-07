@@ -1,4 +1,3 @@
-// Define the base URL for your API
 const API_BASE_URL = "http://localhost:8081/api/v1/auth";
 
 const API_ENDPOINTS = {
@@ -10,3 +9,4 @@ const API_ENDPOINTS = {
 };
 
 export default API_ENDPOINTS;
+

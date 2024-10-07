@@ -3,46 +3,89 @@ import { useDispatch, useSelector } from 'react-redux';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { setSort, fetchEmployees, setSearchQuery,setSortField, setSortOrder, setPage, deleteEmployee as deleteEmployeeAction } from '../EmployeeSlice';
+// import EmployeeService from '../EmployeeService';
 import { useNavigate } from "react-router-dom";
 // import Add from "./Add";
 import AddEmployee from "./AddEmployee";
-import Search from "../../../shared/components/Search.jsx";
-import Filter from "../../../shared/components/Filter.jsx";
-import Pagination from "../../../shared/components/Pagination.jsx";
+import Search from "../../../shared/components/Search";
+import Filter from "../../../shared/components/Filter";
+import Pagination from "../../../shared/components/Pagination";
 import { Outlet } from "react-router-dom"; 
 
 const ViewEmployee = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { employees, searchQuery, sortField, sortOrder,status, currentPage, employeesPerPage } = useSelector(state => state.employee);
-    
     const [isFormOpen, setIsFormOpen] = useState(false);
     
     const openForm = () => setIsFormOpen(true);
     const closeForm = () => setIsFormOpen(false);
 
     useEffect(() => {
-        console.log('Employee prop changed:', employees);
+        // console.log('Employee prop changed:', employees);
         if (status === 'idle') {
             dispatch(fetchEmployees());
         }
         console.log(employees);
     }, [status, dispatch,employees]);
 
+    
+    // useEffect(() => {
+    //     console.log('useEffect running, status:', status);
+    //     if (status === 'idle') {
+    //         console.log('Dispatching fetchEmployees');
+    //         dispatch(fetchEmployees());
+    //     }
+    // }, [status, dispatch]);
+
+    // console.log('ViewEmployee rendering, employees:', employees);
 
     const handleDetailClick = (id) => {
         navigate(`/viewprofile/${id}`);
     }
 
+    // useEffect(() => {
+    //     init();
+    // }, []);
+
+    // const init = () => {
+    //     EmployeeService.getAllEmployees()
+    //         .then((res) => {
+    //             setEmployeeList(res.data);
+    //         })
+    //         .catch((error) => {
+    //             console.log(error);
+    //         });
+    // };
+
+    // const deleteEmployee = (employee_code) => {
+    //     EmployeeService.delEmployee(employee_code)
+    //         .then(() => {
+    //             init();
+    //         })
+    //         .catch((error) => {
+    //             console.log(error);
+    //         });
+    // };
+
     const deleteEmployee = (employee_code) => {
         EmployeeService.delEmployee(employee_code)
           .then(() => {
-            dispatch(fetchEmployees()); 
+            dispatch(fetchEmployees()); // Re-fetch employees after deletion
           })
           .catch((error) => {
             console.log(error);
           });
       };
+
+    // const handleSearchChange = (e) => {
+    //     setSearchQuery(e.target.value);
+    // };
+
+    // const onSort = (e) => {
+    //     setSortField(e.sortField);
+    //     setSortOrder(e.sortOrder);
+    // };
 
     const handleSearchChange = (e) => {
         dispatch(setSearchQuery(e.target.value));
@@ -74,6 +117,17 @@ const ViewEmployee = () => {
         return result * (sortOrder || 1);
     });
 
+    // const filteredEmployees = sortedEmployees.filter((employee) => {
+    //     return (
+    //         employee.first_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    //         employee.last_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    //         employee.departmentName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    //         employee.contact_number.includes(searchQuery) ||
+    //         employee.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    //         employee.employeeStatus.status.toLowerCase().includes(searchQuery.toLowerCase())
+    //     );
+    // });
+
     
   const filteredEmployees = sortedEmployees.filter((employee) => {
     return (
@@ -89,10 +143,27 @@ const ViewEmployee = () => {
   });
 
 
+
     const firstRecordIndex = (currentPage - 1) * employeesPerPage;
     const paginatedEmployees = filteredEmployees.slice(firstRecordIndex, firstRecordIndex + employeesPerPage);
 
     const totalPages = Math.ceil(filteredEmployees.length / employeesPerPage);
+
+    // const handlePrevPage = () => {
+    //     if (currentPage > 1) setCurrentPage(currentPage - 1);
+    // };
+
+    // const handleNextPage = () => {
+    //     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+    // };
+
+    // const handlePrevPage = () => {
+    //     if (currentPage > 1) dispatch(setCurrentPage(currentPage - 1));
+    //   };
+    
+    //   const handleNextPage = () => {
+    //     if (currentPage < totalPages) dispatch(setCurrentPage(currentPage + 1));
+    //   };
 
     const handlePrevPage = () => {
         if (currentPage > 1) dispatch(setPage(currentPage - 1));

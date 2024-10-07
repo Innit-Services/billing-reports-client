@@ -1,48 +1,27 @@
-// src/apis/tokenService.js
-import axiosInstance from './axiosConfig';
-import API_ENDPOINTS from './apiEndpoints';
-import { useAuth } from './AuthContext'; 
+import axios from "axios";
+import API_ENDPOINTS from "./apiEndpoints";
 
-const useTokenService = () => {
-    const { signIn, getAccessToken } = useAuth();
-
-    const signUp = async (email, password) => {
-        try {
-            const response = await axiosInstance.post(API_ENDPOINTS.SIGNUP, { email, password });
-            return response.data;
-        } catch (error) {
-            console.error('Error signing up:', error);
-            throw error;
-        }
-    };
-
-    const signInUser = async (email, password) => {
-        try {
-            const response = await axiosInstance.post(API_ENDPOINTS.SIGNIN, { email, password });
-            const token = response.data.token;
-            signIn(token);
-            alert('Login Successful!');
-            return token;
-        } catch (error) {
-            console.error('Error logging in:', error);
-            alert('Login failed. Please try again.');
-            throw error;
-        }
-    };
-
-    const refreshAuthToken = async (refreshToken) => {
-        try {
-            const response = await axiosInstance.post(API_ENDPOINTS.REFRESH, { refreshToken });
-            const token = response.data.token;
-            signIn(token);
-            return token;
-        } catch (error) {
-            console.error('Error refreshing token:', error);
-            throw error;
-        }
-    };
-
-    return { signUp, signIn: signInUser, refreshAuthToken, getAccessToken };
-};
-
-export default useTokenService;
+const tokenService = {
+    signIn: async (email, password) => {
+      try {
+        const response = await axios.post(API_ENDPOINTS.SIGNIN, { email, password });
+        console.log('Login response:', response.data);
+        return response.data;
+      } catch (error) {
+        console.error('Error logging in:', error);
+        throw new Error('Failed to log in. Please check your credentials.');
+      }
+    },
+  
+    refreshAuthToken: async (refreshToken) => {
+      try {
+        const response = await axios.post(API_ENDPOINTS.REFRESH, { refreshToken });
+        return response.data;
+      } catch (error) {
+        console.error('Error refreshing token:', error);
+        throw new Error('Failed to refresh token. Please log in again.');
+      }
+    }
+  };
+  
+  export default tokenService;

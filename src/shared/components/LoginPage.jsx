@@ -1,22 +1,28 @@
 // src/pages/LoginPage.jsx
 import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
-import useTokenService from '../../apis/tokenService';
-import { useNavigate } from 'react-router-dom';
+import tokenService from '../../apis/tokenService';
+import { useNavigate } from 'react-router-dom'; 
+import { storeTokens } from '../../apis/tokenStorage';
 
 const LoginPage = () => {
-    const navigate = useNavigate();
+    
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { signIn } = useTokenService(); // Use the custom hook
+    const navigate = useNavigate();
 
     const handleLogin = async (event) => {
         event.preventDefault();
+
         try {
-            await signIn(email, password);
-            navigate('/viewclient'); // Redirect after successful login
+            const data = await tokenService.signIn(email, password);
+            const { token, refreshToken } = data;
+            storeTokens(token, refreshToken);         
+            console.log('Login successful, tokens saved in sessionStorage:', token, refreshToken);
+            navigate('/');  
         } catch (error) {
             console.error('Login failed:', error);
+            alert('Login failed. Please check your credentials.');
         }
     };
 

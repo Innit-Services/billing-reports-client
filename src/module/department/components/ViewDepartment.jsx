@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DepartmentService from '../service/DepartmentService';
 import ConfirmModal from './ConfirmModal'; 
+import getAllDepartments from "../service/DepartmentService";
 
 const ViewDepartment = () => {
     const [departmentList, setDepartmentList] = useState([]);
@@ -11,15 +12,27 @@ const ViewDepartment = () => {
         init();
     }, []);
 
-    const init = () => {
-        DepartmentService.getAllDepartments()
-            .then((res) => {
-                setDepartmentList(res.data);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+    // const init = () => {
+    //     DepartmentService.getAllDepartments()
+    //         .then((res) => {
+    //             setDepartmentList(res.data);
+    //         })
+    //         .catch((error) => {
+    //             console.error(error);
+    //         });
+    // };
+
+    const init = async () => {
+        try {
+            const res = await getAllDepartments();  
+            setDepartmentList(res.data);  
+        } catch (error) {
+            console.error(error);  
+        }
     };
+    
+
+    
 
     const handleDeleteClick = (id) => {
         setSelectedDepartmentId(id); 

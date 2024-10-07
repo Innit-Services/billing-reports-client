@@ -49,12 +49,13 @@ const employeeSlice = createSlice({
         setFilter(state, action) {
             state.filter = action.payload;
         },
-        setSortField(state, action) {
-            state.sortField = action.payload;
-        },
-        setSortOrder(state, action) {
-            state.sortOrder = action.payload;
-        },
+        // setSortField(state, action) {
+        //     state.sortField = action.payload;
+        // },
+        // setSortOrder(state, action) {
+        //     state.sortOrder = action.payload;
+        // },
+        
         setSort(state, action) {
             state.sortField = action.payload.sortField;
             state.sortOrder = action.payload.sortOrder;
@@ -74,6 +75,7 @@ const employeeSlice = createSlice({
             .addCase(fetchEmployees.fulfilled, (state, action) => {
                 state.status = 'succeeded';
                 state.employees = action.payload;
+                // Optionally, if currentEmployee was previously set and exists in the new employee list, update it
                 if (state.currentEmployee) {
                     state.currentEmployee = state.employees.find(emp => emp.employee_code === state.currentEmployee.employee_code) || null;
                 }
@@ -83,6 +85,7 @@ const employeeSlice = createSlice({
             })
             .addCase(deleteEmployee.fulfilled, (state, action) => {
                 state.employees = state.employees.filter(employee => employee.employee_code !== action.payload);
+                // If the deleted employee was the current one, clear currentEmployee
                 if (state.currentEmployee && state.currentEmployee.employee_code === action.payload) {
                     state.currentEmployee = null;
                 }
@@ -91,6 +94,7 @@ const employeeSlice = createSlice({
                 state.employees = state.employees.map(employee =>
                     employee.employee_code === action.payload.employee_code ? action.payload : employee
                 );
+                // Update currentEmployee if necessary
                 if (state.currentEmployee && state.currentEmployee.employee_code === action.payload.employee_code) {
                     state.currentEmployee = action.payload;
                 }
