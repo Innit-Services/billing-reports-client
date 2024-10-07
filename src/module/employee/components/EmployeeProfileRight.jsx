@@ -45,7 +45,7 @@ const EmployeeProfileRight = ({ employee, handleEdit,
               <th className="border-0 font-medium p-2">Full Name</th>
               <td className="border-0 d-flex justify-content-between align-items-center p-2">
                 <span>
-                  {employee?.first_name} {employee?.middle_name}{" "}
+                  {employee?.first_name} {employee?.middle_name} {}
                   {employee?.last_name}
                 </span>
               </td>
