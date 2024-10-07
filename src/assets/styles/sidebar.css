@@ -1,7 +1,5 @@
-/* Sidebar container */
 .sidebar {
   width: 13%;
-  /* background-color: #2c3e50; */
   background-color: #324264;
   color: #fff;
   transition: width 0.3s ease;
@@ -15,7 +13,7 @@
 }
 
 .sidebar.close {
-  width: 70px;
+  width: 60px;
 }
 
 .toggle-btn {
@@ -59,7 +57,6 @@
   background-color: #707274;
 }
 
-/* Responsive design for small screens */
 @media (max-width: 768px) {
   .sidebar {
     width: 100%;

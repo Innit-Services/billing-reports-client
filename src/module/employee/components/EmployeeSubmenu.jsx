@@ -43,8 +43,8 @@ const EmployeeSubmenu = ({ id }) => {
       </li>
       <li>
         <a
-          className={getTabClassName(`/viewposition/${id}`)}
-          onClick={() => handleNavigate(`/viewposition/${id}`)}
+          className={getTabClassName(`/viewemployeepositions/${id}`)}
+          onClick={() => handleNavigate(`/viewemployeepositions/${id}`)}
         >
           Position
         </a>
