@@ -11,7 +11,7 @@ const EmployeeProfileLeft = ({ employee, toggleForm }) => {
 
   useEffect(() => {
     if (employee?.image) {
-      localStorage.setItem("employeeImage", employee.image);
+      localStorage.setItem("employeeImage",employee.image);
     }
   }, [employee?.image]);
 
