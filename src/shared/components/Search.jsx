@@ -7,7 +7,7 @@ const Search = ({ searchQuery, onSearchChange }) => {
         placeholder="Search..."
         value={searchQuery}
         onChange={onSearchChange}
-        className="border text-black border-gray-300 rounded-lg me-2 py-3 px-4 max-w-xs mx-2 w-[10vw] h-[2.4rem] text-sm"
+        className="border text-black border-gray-300 rounded-lg py-3 px-4 w-[10vw] h-[2.4rem] text-sm"
     />
     
     );

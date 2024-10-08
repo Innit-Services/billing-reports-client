@@ -3,6 +3,7 @@ body {
     padding: 0;
     font-size: 16px;
     line-height: 1.5;
+    overflow: hidden;
 }
 
 #root{
@@ -10,5 +11,41 @@ body {
 }
 
 main{
-    margin: 0.5rem;
+    margin:2.5rem;
 }
+.p-paginator {
+    padding-top: 20px;
+    padding-bottom: 10px; 
+}
+
+
+ .p-datatable .p-sortable-column .p-sortable-column-icon {
+    display: none; 
+} 
+
+.hover-row:hover {
+    background-color: #c1cedb;
+}
+
+:root {
+    --primary-color: #ffffff;
+  }
+  
+  
+  body {
+    background-color: var(--primary-color);
+  }
+  
+  button {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+  
+  a {
+    color: var(--primary-color);
+  }
+  
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

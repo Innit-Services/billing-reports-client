@@ -20,4 +20,4 @@ const DeleteConfirmation = ({ show, onClose, onConfirm }) => {
   );
 };
 
-export default  DeleteConfirmation;
+export default DeleteConfirmation;
