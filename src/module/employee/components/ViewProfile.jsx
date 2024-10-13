@@ -8,11 +8,14 @@ import { fetchEmployees, setCurrentEmployee } from '../EmployeeSlice';
 import 'boxicons/css/boxicons.min.css';
 
 const ViewProfile = () => {
-    const { id } = useParams();
+    const { id } = useParams(); 
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const dispatch = useDispatch(); 
 
     const [showForm, setShowForm] = useState(false);
+    // const [employees, setEmployees] = useState([]);
+    // const [employee, setEmployee] = useState(null);
+    // const [currentIndex, setCurrentIndex] = useState(-1);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [employeeDropdownOpen, setEmployeeDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
@@ -21,15 +24,36 @@ const ViewProfile = () => {
     const employees = useSelector(state => state.employee.employees);
     const currentEmployee = useSelector(state => state.employee.currentEmployee);
 
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             const response = await EmployeeService.getAllEmployees();
+    //             const employeeList = response.data;
+    //             setEmployees(employeeList);
+
+    //             const currentEmployeeIndex = employeeList.findIndex(emp => emp.employee_code === id);
+    //             if (currentEmployeeIndex !== -1) {
+    //                 setEmployee(employeeList[currentEmployeeIndex]);
+    //                 setCurrentIndex(currentEmployeeIndex);
+    //             }
+    //         } catch (error) {
+    //             console.error('Error fetching employee data:', error);
+    //         }
+    //     };
+
+    //     fetchData();
+    // }, [id]);
+
+
     useEffect(() => {
-        dispatch(fetchEmployees()); 
+        dispatch(fetchEmployees()); // Fetch all employees on component mount
     }, [dispatch]);
 
     useEffect(() => {
         if (employees.length > 0) {
             const employee = employees.find(emp => emp.employee_code === id);
             if (employee) {
-                dispatch(setCurrentEmployee(id)); 
+                dispatch(setCurrentEmployee(id)); // Set the current employee based on URL id
             }
         }
     }, [id, employees, dispatch]);
@@ -51,6 +75,10 @@ const ViewProfile = () => {
     const handlePrev = () => {
         const currentIndex = employees.findIndex(emp => emp.employee_code === currentEmployee?.employee_code);
         if (currentIndex > 0) {
+            // const prevIndex = currentIndex - 1;
+            // const prevEmployee = employees[prevIndex];
+            // setEmployee(prevEmployee);
+            // setCurrentIndex(prevIndex);
             const prevEmployee = employees[currentIndex - 1];
             dispatch(setCurrentEmployee(prevEmployee.employee_code));
             navigate(`/viewprofile/${prevEmployee.employee_code}`);
@@ -61,6 +89,10 @@ const ViewProfile = () => {
         const currentIndex = employees.findIndex(emp => emp.employee_code === currentEmployee?.employee_code);
         if(currentIndex < employees.length - 1) {
             const nextEmployee = employees[currentIndex + 1];
+            // const nextIndex = currentIndex + 1;
+            // const nextEmployee = employees[nextIndex];
+            // setEmployee(nextEmployee);
+            // setCurrentIndex(nextIndex);
             dispatch(setCurrentEmployee(nextEmployee.employee_code));
             navigate(`/viewprofile/${nextEmployee.employee_code}`);
         }
@@ -77,6 +109,16 @@ const ViewProfile = () => {
     const handleShowPositionModal = () => {
         navigate("/position");
     };
+
+    // const handleSelectEmployee = (employeeCode) => {
+    //     const selectedIndex = employees.findIndex(emp => emp.employee_code === employeeCode);
+    //     if (selectedIndex !== -1) {
+    //         setEmployee(employees[selectedIndex]);
+    //         setCurrentIndex(selectedIndex);
+    //         navigate(`/viewprofile/${employeeCode}`);
+    //         setEmployeeDropdownOpen(false);
+    //     }
+    // };
 
     const handleSelectEmployee = (employeeCode) => {
         dispatch(setCurrentEmployee(employeeCode));

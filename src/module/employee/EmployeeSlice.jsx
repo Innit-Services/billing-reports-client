@@ -33,6 +33,7 @@ const employeeSlice = createSlice({
         searchQuery: '',
         filter: '',
         currentEmployee: null,
+        selectedProfile: null,  
         sortField: null,
         sortOrder: null,
         status: 'idle',
@@ -49,12 +50,6 @@ const employeeSlice = createSlice({
         setFilter(state, action) {
             state.filter = action.payload;
         },
-        // setSortField(state, action) {
-        //     state.sortField = action.payload;
-        // },
-        // setSortOrder(state, action) {
-        //     state.sortOrder = action.payload;
-        // },
         
         setSort(state, action) {
             state.sortField = action.payload.sortField;
@@ -66,7 +61,15 @@ const employeeSlice = createSlice({
         setEmployeesPerPage(state, action) {
             state.employeesPerPage = action.payload;
         },
+
+        setSelectedProfile(state, action) { 
+            state.selectedProfile = action.payload;
+        },
+        clearSelectedProfile(state) { 
+            state.selectedProfile = null;
+        },
     },
+    
     extraReducers: (builder) => {
         builder
             .addCase(fetchEmployees.pending, (state) => {
@@ -110,7 +113,9 @@ export const {
     setPage, 
     setSort,
     setEmployeesPerPage,
-    setCurrentEmployee
+    setCurrentEmployee,
+    setSelectedProfile, // Export new action
+    clearSelectedProfile 
 } = employeeSlice.actions;
 
 export default employeeSlice.reducer; 

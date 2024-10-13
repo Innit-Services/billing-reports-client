@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import { setSort, fetchEmployees, setSearchQuery,setSortField, setSortOrder, setPage, deleteEmployee as deleteEmployeeAction } from '../EmployeeSlice';
+import { setSort, fetchEmployees, setSearchQuery,setSortField, setSortOrder, setPage, deleteEmployee as deleteEmployeeAction,setSelectedProfile } from '../EmployeeSlice';
 // import EmployeeService from '../EmployeeService';
 import { useNavigate } from "react-router-dom";
 // import Add from "./Add";
@@ -41,6 +41,7 @@ const ViewEmployee = () => {
     // console.log('ViewEmployee rendering, employees:', employees);
 
     const handleDetailClick = (id) => {
+        dispatch(setSelectedProfile(id));
         navigate(`/viewprofile/${id}`);
     }
 
